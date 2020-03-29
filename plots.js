@@ -22,6 +22,7 @@ function handleSubmit() {
 
   //Build the plots with the testsubject data
   buildCharts(testSubject);
+  buildDemoInfo(testSubject);
   };
 
 // 2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
@@ -31,7 +32,7 @@ function handleSubmit() {
 // * Use `otu_labels` as the hovertext for the chart.
 
 //create the barchart & bubble functions
-function buildBarChart(data) {
+function buildCharts(data) {
 
   //grab the values for the chart and lables
   var sampleValues = data.samples.sample_values;
@@ -59,7 +60,9 @@ function buildBarChart(data) {
     x: otuIds,
     y: sampleValues,
     mode: 'markers',
-    marker: sampleValues
+    marker: {
+      size: sampleValues,
+      color: otuIds},
     text: otuLables
   };
 
@@ -67,8 +70,15 @@ function buildBarChart(data) {
     title: "OTUs Most Commonly Found in Belly Buttons"
   };
 
-  Plotly.newPlot("bubble", bubbleLayout, bubbleLayout)
+  Plotly.newPlot("bubble", bubbleLayout, bubbleLayout);
+};
+
+function buildDemoInfo(data) {
+
 }
+
+  // 4. Display the sample metadata, i.e., an individual's demographic information.
+
 
 
 
