@@ -8,6 +8,15 @@
 
 //create button handler for the dashboard to refresh all graphs on page
 
+//populate the drop down with the sample IDs
+var sel = document.getElementById('selDataSet');
+
+for (var i = 0, i < names.length; i++) {
+  var option = document.createElement('option');
+  option.value = names[i];
+  sel.appendChild(option);
+};
+
 //Submit Button Handler for the dropdown
 function handleSubmit() {
   //prevent the page from reloading
