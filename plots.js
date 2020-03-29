@@ -38,7 +38,7 @@ function buildBarChart(data) {
   var otuIds = data.samples.otu_ids;
   var otuLables = data.samples.otu_lables;
 
-  //Plot the bar chart
+  // 2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
   var barTrace = {
     type: "bar",
     orientation: "h",
@@ -53,7 +53,7 @@ function buildBarChart(data) {
 
   Plotly.newPlot("bar", barTrace, barLayout);
 
-  //Plot the bubble chart
+  // 3. Create a bubble chart that displays each sample.
   var bubbleTrace = {
     type: "bubble",
     x: otuIds,
@@ -62,6 +62,12 @@ function buildBarChart(data) {
     marker: sampleValues
     text: otuLables
   };
+
+  var bubbleLayout = {
+    title: "OTUs Most Commonly Found in Belly Buttons"
+  };
+
+  Plotly.newPlot("bubble", bubbleLayout, bubbleLayout)
 }
 
 
