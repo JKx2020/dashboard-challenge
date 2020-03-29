@@ -38,7 +38,7 @@ function buildBarChart(data) {
   var otuIds = data.samples.otu_ids;
   var otuLables = data.samples.otu_lables;
 
-  //create the trace for the bar chart
+  //Plot the bar chart
   var barTrace = {
     type: "bar",
     orientation: "h",
@@ -46,10 +46,22 @@ function buildBarChart(data) {
     y: otuIds,
     hovertext: otuLables,
     };
-    
+  
   var barLayout = {
     title: "Top 10 OTU's found in the Test Subject"
     };
+
+  Plotly.newPlot("bar", barTrace, barLayout);
+
+  //Plot the bubble chart
+  var bubbleTrace = {
+    type: "bubble",
+    x: otuIds,
+    y: sampleValues,
+    mode: 'markers',
+    marker: sampleValues
+    text: otuLables
+  };
 }
 
 
