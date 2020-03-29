@@ -78,16 +78,19 @@ function buildCharts(data) {
 
 //create filter function to filter the metadata objects on the selected test subject
  
-function filterSample(sample) {
-  return 
+function filterSamples(sample) {
+  return sample.id === testSubject;
 }
 
 var panelRow = d3.select("panel");
 
 function buildDemoInfo(metadata) {
 
-   //grab the metadata values
-   metadata.forEach(info => {
+   //grab the metadata values by filtering the objects by testSubject id choosen from dropdown
+   var testData = metadata.filter(filterSamples);
+   console.log("The metadata is:", testData);
+
+   testData.forEach(info => {
      var row = panelRow.append("panel-body");
 
      Object.entries(info).forEach(([key, value])=> row.text(key, ":", value);
@@ -95,24 +98,6 @@ function buildDemoInfo(metadata) {
      });
    };
 
-// 3. Create a bubble chart that displays each sample.
-
-// * Use `otu_ids` for the x values.
-
-// * Use `sample_values` for the y values.
-
-// * Use `sample_values` for the marker size.
-
-// * Use `otu_ids` for the marker colors.
-
-// * Use `otu_labels` for the text values.
-
-// ![Bubble Chart](Images/bubble_chart.png)
-
-
-
-
-// 4. Display the sample metadata, i.e., an individual's demographic information.
 
 // 5. Display each key-value pair from the metadata JSON object somewhere on the page.
 
