@@ -21,8 +21,7 @@ function handleSubmit() {
   d3.select("#selDataset").node().value = "";
 
   //Build the plots with the testsubject data
-  buildBarChart(testSubject);
-  buildBubbleChart(testSubject);
+  buildCharts(testSubject);
   };
 
 // 2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
@@ -31,13 +30,26 @@ function handleSubmit() {
 // * Use `otu_ids` as the labels for the bar chart.
 // * Use `otu_labels` as the hovertext for the chart.
 
-//create the barchart function
+//create the barchart & bubble functions
 function buildBarChart(data) {
 
   //grab the values for the chart and lables
   var sampleValues = data.samples.sample_values;
   var otuIds = data.samples.otu_ids;
   var otuLables = data.samples.otu_lables;
+
+  //create the trace for the bar chart
+  var barTrace = {
+    type: "bar",
+    orientation: "h",
+    x: sampleValues,
+    y: otuIds,
+    hovertext: otuLables,
+    };
+    
+  var barLayout = {
+    title: "Top 10 OTU's found in the Test Subject"
+    };
 }
 
 
