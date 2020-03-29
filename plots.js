@@ -34,7 +34,7 @@ function handleSubmit() {
 //create the barchart & bubble functions
 function buildCharts(data) {
 
-  //grab the values for the chart and lables
+  //grab the values for the charts and lables
   var sampleValues = data.samples.sample_values;
   var otuIds = data.samples.otu_ids;
   var otuLables = data.samples.otu_lables;
@@ -73,14 +73,27 @@ function buildCharts(data) {
   Plotly.newPlot("bubble", bubbleLayout, bubbleLayout);
 };
 
-function buildDemoInfo(data) {
 
+// 4. Display the sample metadata, i.e., an individual's demographic information.
+
+//create filter function to filter the metadata objects on the selected test subject
+ 
+function filterSample(sample) {
+  return 
 }
 
-  // 4. Display the sample metadata, i.e., an individual's demographic information.
+var panelRow = d3.select("panel");
 
+function buildDemoInfo(metadata) {
 
+   //grab the metadata values
+   metadata.forEach(info => {
+     var row = panelRow.append("panel-body");
 
+     Object.entries(info).forEach(([key, value])=> row.text(key, ":", value);
+
+     });
+   };
 
 // 3. Create a bubble chart that displays each sample.
 
