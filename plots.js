@@ -3,33 +3,38 @@ var data = "samples.json";
 
 d3.json(data).then(samples => console.log(samples));
 
-
-d3.json(data).then((collection)=>{
-	collection.samples.forEach((sample) => {
-		console.log(sample.otu_ids);
-	});
-});
+//Aydins code
+// d3.json(data).then((collection)=>{
+// 	collection.samples.forEach((sample) => {
+// 		console.log(sample.otu_ids);
+// 	});
+// });
 
 
 //create button handler for the diashboard to refresh all graphs on page
 
 //populate the drop down with the sample IDs
 
-// d3.json("samples.json").then((collection)=>{
-// 	collection.names.forEach((sample) => {
-// 		console.log(sample.otu_ids);
-// 	});
-// });
+d3.json(data).then((collection)=>{
+	collection.names.forEach((name) => {
+
+    console.log(name);
+
+    //create the new option element and populate with the sample names
+    var option = document.createElement("option");
+
+    option.text = name;
+    option.value = name;
+    console.log(option);
+
+    var sel = document.getElementById("selDataset");
+    sel.appendChild(option);
 
 
+	});
+});
 
-// var sel = document.getElementById('selDataSet');
 
-// for (var i = 0; i < names.length; i++) {
-//   var option = document.createElement('option');
-//   option.value = names[i];
-//   sel.appendChild(option);
-// };
 
 // //Submit Button Handler for the dropdown
 // function handleSubmit() {
