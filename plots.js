@@ -1,43 +1,27 @@
 // 1. Use the D3 library to read in `samples.json`.
-d3.json("samples.json").then(samples => console.log(samples));
+var data = "samples.json";
+
+d3.json(data).then(samples => console.log(samples));
 
 
-d3.json("samples.json").then((collection)=>{
+d3.json(data).then((collection)=>{
 	collection.samples.forEach((sample) => {
 		console.log(sample.otu_ids);
 	});
 });
 
-// console.log(data.metadata)
-// for (var key in data) {
-//   Object.keys(data);
-//   console.log(key);
-// };
 
-
-// var keys = d3.keys(data.metadata);
-// console.log(keys);
-// var keys = []
-// Object.keys(data).forEach(key =>
-//   keys.append(key));
-//   ;
-// console.log(keys);
-
-// var data = d3.json("samples.json").then(function(data) {
-//     console.log(data)
-
-//  });
-
-// console.log(Object.keys(data));
-
-//create button handler for the di ashboard to refresh all graphs on page
+//create button handler for the diashboard to refresh all graphs on page
 
 //populate the drop down with the sample IDs
-// var data = d3.json("names.json").then(function(data) {
-//   data.forEach(console.log(data))
+
+// d3.json("samples.json").then((collection)=>{
+// 	collection.names.forEach((sample) => {
+// 		console.log(sample.otu_ids);
+// 	});
 // });
 
-// JSON.stringify(data);
+
 
 // var sel = document.getElementById('selDataSet');
 
