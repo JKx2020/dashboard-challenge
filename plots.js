@@ -10,10 +10,7 @@ d3.json(data).then(samples => console.log(samples));
 // 	});
 // });
 
-
-//create button handler for the diashboard to refresh all graphs on page
-
-//populate the drop down with the sample IDs
+// 2. Populate the drop down with the sample ID Names
 
 d3.json(data).then((collection)=>{
 	collection.names.forEach((name) => {
@@ -27,31 +24,34 @@ d3.json(data).then((collection)=>{
     option.value = name;
     console.log(option);
 
+    //append the new option to the selDataset element
     var sel = document.getElementById("selDataset");
     sel.appendChild(option);
-
-
 	});
 });
 
 
+// 3. create button handler for the dashboard to refresh all graphs on page
 
-// //Submit Button Handler for the dropdown
-// function handleSubmit() {
-//   //prevent the page from reloading
-//   d3.event.preventDefault();
+//call optionChanged when a change is made to the dropdown
+d3.selectAll("#selDataset").on("change", optionChanged);
 
-//   //select the input value
-//   var testSubject = d3.select("#selDataset").node().value;
-//   console.log(testSubject);
 
-//   //clear the input value
-//   d3.select("#selDataset").node().value = "";
 
-//   //Build the plots with the testsubject data
-//   buildCharts(testSubject);
-//   buildDemoInfo(testSubject);
-//   };
+//add listener to the dropdown and run the dashboard
+function handleSubmit() {
+
+  //prevent the page from reloading
+  d3.event.preventDefault();
+
+  //select the input value
+  var testSubject = d3.select("#selDataset").property(value);
+  console.log(testSubject);
+
+  //Build the plots with the testsubject data
+  buildCharts(testSubject);
+  buildDemoInfo(testSubject);
+  };
 
 // // 2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
 
@@ -134,4 +134,4 @@ d3.json(data).then((collection)=>{
 
 // // ![hw](Images/hw03.png)
 
-// // 6. Update all of the plots any time that a new sample is selected.
+// // 6. Update all of the plots any time that a new sample is selected
