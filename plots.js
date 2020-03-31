@@ -70,21 +70,22 @@ function optionChanged() {
         };
       });
     });
+
+    
   //loop through the data, filter the data by the selected ID and cteate the metadata table
   d3.json(data).then((collection)=>{
-    collection.samples.forEach((object) => {
+    collection.metadata.forEach((object) => {
       
       if (object.id === testSubject) {
         console.log(object.id);
 
-        //build out the metadata table
-        var barData = [{
-          y: String(object.otu_ids.slice(0,10)),
-          x: object.sample_values.slice(0,10),
-          type: "bar",
-          orientation: "h",
-          hovertext: object.otu_labels.slice(0,10)
-        }];
+        var panel = d3.select("#sample-metadata");
+        var
+        panelRow.append("panel-body");
+
+        Object.entries(object).forEach(([key, value])=> row.text(key, ":", value));
+
+
 
         };
       });
@@ -98,25 +99,13 @@ function optionChanged() {
 
 //create filter function to filter the metadata objects on the selected test subject
  
-function filterSamples(sample) {
-  return sample.id === testSubject;
-}
+
 
 var panelRow = d3.select("panel");
 
-function buildDemoInfo(metadata) {
 
    //grab the metadata values by filtering the objects by testSubject id choosen from dropdown
-   var testData = metadata.filter(filterSamples);
-   console.log("The metadata is:", testData);
 
-   testData.forEach(info => {
-     var row = panelRow.append("panel-body");
-
-     Object.entries(info).forEach(([key, value])=> row.text(key, ":", value));
-
-     });
-   };
 
 
 // // 5. Display each key-value pair from the metadata JSON object somewhere on the page.
