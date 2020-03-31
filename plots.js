@@ -40,17 +40,30 @@ function optionChanged() {
       
       if (object.id === testSubject) {
         console.log(object.id);
+
         //build the bar chart
         var barData = [{
-          x: object.otu_ids.slice(0,10),
-          y: object.sample_values.slice(0,10),
+          y: String(object.otu_ids.slice(0,10)),
+          x: object.sample_values.slice(0,10),
           type: "bar",
-          orientation: "h"
+          orientation: "h",
+          hovertext: object.otu_labels.slice(0,10)
         }];
-        Plotly.newPlot("bar", barData);
+
+            
+        var barLayout = {
+          title: "Top 10 OTU's found in the Test Subject"
+          };
+
+        Plotly.newPlot("bar", barData, barLayout);
 
 
-        //call the build plots function
+        //build the bubble chart
+        var bubbleData = [{
+          y: object.sample_values,
+          x: object.otu_ids,
+          hovertext: object.otu_labels
+        }]
 
         //buildDemoInfo(testSubject);
       };
@@ -58,22 +71,6 @@ function optionChanged() {
   });
 };
 
-
-// 5. Create a horizontal bar chart function 'buildBarChart' with a dropdown menu to display the top 10 OTUs found in that individual.
-
-// d3.json(data).then((sample_collection) => {
-//   sample_collection.samples.forEach((id)=> {})
-//   sample_collection.samples.forEach((otu)=>{
-//     var data = [{
-//       x: otu.otu_ids.slice(0,10),
-//       y: otu.sample_values.slice(0,10),
-//       type: "bar",
-//       orientation: "h"
-//     }];
-//     Plotly.newPlot("bar", data);
-//     });
-// });
-// };
 
 
 // // * Use `sample_values` as the values for the bar chart.
@@ -90,17 +87,11 @@ function optionChanged() {
 //     var otuLables = data.samples.otu_lables;
 
 //     // 2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
-//     var barTrace = {
-//       type: "bar",
-//       orientation: "h",
-//       x: sampleValues,
-//       y: otuIds,
-//       hovertext: otuLables,
-//       };
+
     
-//     var barLayout = {
-//       title: "Top 10 OTU's found in the Test Subject"
-//       };
+    var barLayout = {
+      title: "Top 10 OTU's found in the Test Subject"
+      };
 
 //     Plotly.newPlot("bar", barTrace, barLayout);
 
