@@ -31,29 +31,46 @@ d3.json(data).then((collection)=>{
 });
 
 
-// 3. create button handler for the dashboard to refresh all graphs on page
-
-//call optionChanged when a change is made to the dropdown
+//3. call optionChanged when a change is made to the dropdown
 d3.selectAll("#selDataset").on("change", optionChanged);
 
+//4. create filter function to filter data on the selected ID
+function filterId(id) {
+  return id.id === d3.select("#selDataset").property("value");
+};
 
+// 4. Create the optionChanged function to update the graphs when a change is made
+function optionChanged() {
 
-//add listener to the dropdown and run the dashboard
-function handleSubmit() {
-
-  //prevent the page from reloading
-  d3.event.preventDefault();
+  //select the dropdown menu
+  var dropdownMenu = d3.select("#selDataset");
+  var sample = dropdownMenu.property("value");
 
   //select the input value
   var testSubject = d3.select("#selDataset").property(value);
   console.log(testSubject);
 
   //Build the plots with the testsubject data
-  buildCharts(testSubject);
+  buildBarcharts(testSubject);
   buildDemoInfo(testSubject);
   };
 
 // // 2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
+function buildBarchart() {
+d3.json(data).then((sample_collection) => {
+  sample_collection.samples.forEach((id)=> {})
+  sample_collection.samples.forEach((otu)=>{
+    var data = [{
+      x: otu.otu_ids.slice(0,10),
+      y: otu.sample_values.slice(0,10),
+      type: "bar",
+      orientation: "h"
+    }];
+    Plotly.newPlot("bar", data);
+    });
+});
+};
+
 
 // // * Use `sample_values` as the values for the bar chart.
 // // * Use `otu_ids` as the labels for the bar chart.
