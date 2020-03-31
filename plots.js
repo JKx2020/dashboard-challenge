@@ -71,27 +71,27 @@ function optionChanged() {
       });
     });
 
-    
-  //loop through the data, filter the data by the selected ID and cteate the metadata table
-  d3.json(data).then((collection)=>{
-    collection.metadata.forEach((object) => {
-      
-      if (object.id === testSubject) {
-        console.log(object.id);
 
-        var panel = d3.select("#sample-metadata");
-        var
-        panelRow.append("panel-body");
+    //loop through the data, filter the data by the selected ID and create the metadata table
+    d3.json(data).then((collection)=>{
+      collection.metadata.forEach((object) => {
+        
+        if (object.id == testSubject) {
+          console.log('the selected object id is:',object.id);
 
-        Object.entries(object).forEach(([key, value])=> row.text(key, ":", value));
+          var panel = d3.select(".panel-body").append("table");
 
+          Object.entries(object).forEach(([key, value])=> {
 
+            var row = panel.append("tr");
+            var metaData = row.append("td")
 
-        };
-      });
+            metaData.text(key, ": ",value);
+
+        });
+      };
     });
-
-
+  });
 };
 
 
@@ -99,10 +99,6 @@ function optionChanged() {
 
 //create filter function to filter the metadata objects on the selected test subject
  
-
-
-var panelRow = d3.select("panel");
-
 
    //grab the metadata values by filtering the objects by testSubject id choosen from dropdown
 
