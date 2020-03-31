@@ -4,20 +4,14 @@ var data = "samples.json";
 d3.json(data).then(samples => console.log(samples));
 
 //Aydins code
-// d3.json(data).then((collection)=>{
-// 	collection.samples.forEach((sample) => {
-// 		console.log(sample.otu_ids);
-// 	});
-// });
+
 
 // 2. Populate the drop down with the sample ID Names
 
 d3.json(data).then((collection)=>{
 	collection.names.forEach((name) => {
 
-    console.log(name);
-
-    //create the new option element and populate with the sample names
+    //create the new option element using the sample.names
     var option = document.createElement("option");
 
     option.text = name;
@@ -31,45 +25,57 @@ d3.json(data).then((collection)=>{
 });
 
 
-//3. call optionChanged when a change is made to the dropdown
+//3. call 'optionChanged' when a change is made to the dropdown
 d3.selectAll("#selDataset").on("change", optionChanged);
+
 
 //4. create filter function to filter data on the selected ID
 function filterId(id) {
   return id.id === d3.select("#selDataset").property("value");
 };
 
-// 4. Create the optionChanged function to update the graphs when a change is made
+// 5. Create the optionChanged function to update the graphs when a change is made
 function optionChanged() {
 
-  //select the dropdown menu
-  var dropdownMenu = d3.select("#selDataset");
-  var sample = dropdownMenu.property("value");
+  //select the dropdown menu & the value selected
+  var testSubject = d3.select("#selDataset").property("value");
+  
+  //use the filter function to filter on the selected ID
+  var filteredId = 
+  d3.json(data).then((collection)=>{
+    var samples = collection.samples;
 
-  //select the input value
-  var testSubject = d3.select("#selDataset").property(value);
-  console.log(testSubject);
+    samples.forEach((sample) => {
+      var filteredSample = sample.id.filter(filterId);
+      console.log(filteredSample);
+    });
+  });
+
+
+
+
+  //console.log(testSubject);
 
   //Build the plots with the testsubject data
-  buildBarcharts(testSubject);
-  buildDemoInfo(testSubject);
+  // buildBarcharts(testSubject);
+  // buildDemoInfo(testSubject);
   };
 
 // // 2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
-function buildBarchart() {
-d3.json(data).then((sample_collection) => {
-  sample_collection.samples.forEach((id)=> {})
-  sample_collection.samples.forEach((otu)=>{
-    var data = [{
-      x: otu.otu_ids.slice(0,10),
-      y: otu.sample_values.slice(0,10),
-      type: "bar",
-      orientation: "h"
-    }];
-    Plotly.newPlot("bar", data);
-    });
-});
-};
+// function buildBarchart() {
+// d3.json(data).then((sample_collection) => {
+//   sample_collection.samples.forEach((id)=> {})
+//   sample_collection.samples.forEach((otu)=>{
+//     var data = [{
+//       x: otu.otu_ids.slice(0,10),
+//       y: otu.sample_values.slice(0,10),
+//       type: "bar",
+//       orientation: "h"
+//     }];
+//     Plotly.newPlot("bar", data);
+//     });
+// });
+// };
 
 
 // // * Use `sample_values` as the values for the bar chart.
