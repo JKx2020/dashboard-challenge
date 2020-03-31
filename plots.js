@@ -31,7 +31,7 @@ function optionChanged() {
   //select the dropdown value selected
   var testSubject = d3.select("#selDataset").property("value");
   
-  //use the filter function to filter on the selected ID
+  //loop through the data, filter the data by the selected ID and cteate the graphs
     d3.json(data).then((collection)=>{
     collection.samples.forEach((object) => {
       
@@ -67,54 +67,57 @@ function optionChanged() {
         }];
 
         Plotly.newPlot("bubble", bubbleData);
-     };
+        };
+      });
     });
-  });
+  //loop through the data, filter the data by the selected ID and cteate the metadata table
+  d3.json(data).then((collection)=>{
+    collection.samples.forEach((object) => {
+      
+      if (object.id === testSubject) {
+        console.log(object.id);
+
+        //build out the metadata table
+        var barData = [{
+          y: String(object.otu_ids.slice(0,10)),
+          x: object.sample_values.slice(0,10),
+          type: "bar",
+          orientation: "h",
+          hovertext: object.otu_labels.slice(0,10)
+        }];
+
+        };
+      });
+    });
+
+
 };
 
-//     // 3. Create a bubble chart that displays each sample.
-//     var bubbleTrace = {
-//       type: "bubble",
-//       x: otuIds,
-//       y: sampleValues,
-//       mode: 'markers',
-//       marker: {
-//         size: sampleValues,
-//         color: otuIds},
-//       text: otuLables
-//     };
 
+// 4. Display the sample metadata, i.e., an individual's demographic information.
 
-//     Plotly.newPlot("bubble", bubbleLayout, bubbleLayout);
-//   });
-// };
-
-// // 4. Display the sample metadata, i.e., an individual's demographic information.
-
-// //create filter function to filter the metadata objects on the selected test subject
+//create filter function to filter the metadata objects on the selected test subject
  
-// function filterSamples(sample) {
-//   return sample.id === testSubject;
-// }
+function filterSamples(sample) {
+  return sample.id === testSubject;
+}
 
-// var panelRow = d3.select("panel");
+var panelRow = d3.select("panel");
 
-// function buildDemoInfo(metadata) {
+function buildDemoInfo(metadata) {
 
-//    //grab the metadata values by filtering the objects by testSubject id choosen from dropdown
-//    var testData = metadata.filter(filterSamples);
-//    console.log("The metadata is:", testData);
+   //grab the metadata values by filtering the objects by testSubject id choosen from dropdown
+   var testData = metadata.filter(filterSamples);
+   console.log("The metadata is:", testData);
 
-//    testData.forEach(info => {
-//      var row = panelRow.append("panel-body");
+   testData.forEach(info => {
+     var row = panelRow.append("panel-body");
 
-//      Object.entries(info).forEach(([key, value])=> row.text(key, ":", value));
+     Object.entries(info).forEach(([key, value])=> row.text(key, ":", value));
 
-//      });
-//    };
+     });
+   };
 
-// // Add event listener for submit button
-// d3.select("#selDataset").on("click", handleSubmit);
 
 // // 5. Display each key-value pair from the metadata JSON object somewhere on the page.
 
