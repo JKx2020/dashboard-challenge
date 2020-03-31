@@ -3,7 +3,6 @@ var data = "samples.json";
 
 d3.json(data).then(samples => console.log(samples));
 
-//Aydins code
 
 
 // 2. Populate the drop down with the sample ID Names
@@ -30,36 +29,29 @@ d3.selectAll("#selDataset").on("change", optionChanged);
 
 
 //4. create filter function to filter data on the selected ID
-function filterId(id) {
-  return id.id === d3.select("#selDataset").property("value");
+function filterId(sample) {
+  return sample.id === testSubject;
 };
 
 // 5. Create the optionChanged function to update the graphs when a change is made
 function optionChanged() {
 
-  //select the dropdown menu & the value selected
+  //select the dropdown value selected
   var testSubject = d3.select("#selDataset").property("value");
   
   //use the filter function to filter on the selected ID
-  var filteredId = 
-  d3.json(data).then((collection)=>{
-    var samples = collection.samples;
+    d3.json(data).then((collection)=>{
+    collection.samples.forEach((object) => {
+      
+      if (object.id === testSubject) {
 
-    samples.forEach((sample) => {
-      var filteredSample = sample.id.filter(filterId);
-      console.log(filteredSample);
+        //call the build plots function
+        buildBarcharts(testSubject);
+        buildDemoInfo(testSubject);
+      };
     });
   });
-
-
-
-
-  //console.log(testSubject);
-
-  //Build the plots with the testsubject data
-  // buildBarcharts(testSubject);
-  // buildDemoInfo(testSubject);
-  };
+};
 
 // // 2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
 // function buildBarchart() {
