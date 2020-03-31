@@ -24,16 +24,11 @@ d3.json(data).then((collection)=>{
 });
 
 
-//3. call 'optionChanged' when a change is made to the dropdown
+// 3. call 'optionChanged' when a change is made to the dropdown
 d3.selectAll("#selDataset").on("change", optionChanged);
 
 
-//4. create filter function to filter data on the selected ID
-function filterId(sample) {
-  return sample.id === testSubject;
-};
-
-// 5. Create the optionChanged function to update the graphs when a change is made
+// 4. Create the optionChanged function to update the graphs when a change is made
 function optionChanged() {
 
   //select the dropdown value selected
@@ -44,17 +39,28 @@ function optionChanged() {
     collection.samples.forEach((object) => {
       
       if (object.id === testSubject) {
+        console.log(object.id);
+        //build the bar chart
+        var barData = [{
+          x: object.otu_ids.slice(0,10),
+          y: object.sample_values.slice(0,10),
+          type: "bar",
+          orientation: "h"
+        }];
+        Plotly.newPlot("bar", barData);
+
 
         //call the build plots function
-        buildBarcharts(testSubject);
-        buildDemoInfo(testSubject);
+
+        //buildDemoInfo(testSubject);
       };
     });
   });
 };
 
-// // 2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
-// function buildBarchart() {
+
+// 5. Create a horizontal bar chart function 'buildBarChart' with a dropdown menu to display the top 10 OTUs found in that individual.
+
 // d3.json(data).then((sample_collection) => {
 //   sample_collection.samples.forEach((id)=> {})
 //   sample_collection.samples.forEach((otu)=>{
