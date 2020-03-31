@@ -81,12 +81,16 @@ function optionChanged() {
 
           var panel = d3.select(".panel-body").append("table");
 
+          //clear old table, update for new filter
+          d3.selectAll("td").remove();
+
           Object.entries(object).forEach(([key, value])=> {
 
+            //append new rows and new data to the table
             var row = panel.append("tr");
             var metaData = row.append("td")
 
-            metaData.text(key, ": ",value);
+            metaData.text([key+": "+ value]);
 
         });
       };
