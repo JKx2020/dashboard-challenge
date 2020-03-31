@@ -1,8 +1,6 @@
 // 1. Use the D3 library to read in `samples.json`.
 var data = "samples.json";
-
 d3.json(data).then(samples => console.log(samples));
-
 
 
 // 2. Populate the drop down with the sample ID Names
@@ -15,7 +13,6 @@ d3.json(data).then((collection)=>{
 
     option.text = name;
     option.value = name;
-    console.log(option);
 
     //append the new option to the selDataset element
     var sel = document.getElementById("selDataset");
@@ -50,7 +47,6 @@ function optionChanged() {
           hovertext: object.otu_labels.slice(0,10)
         }];
 
-            
         var barLayout = {
           title: "Top 10 OTU's found in the Test Subject"
           };
@@ -62,38 +58,19 @@ function optionChanged() {
         var bubbleData = [{
           y: object.sample_values,
           x: object.otu_ids,
-          hovertext: object.otu_labels
-        }]
+          mode: "markers",
+          marker: {
+            size: object.sample_values,
+            color: object.otu_ids},
+          type: "bubble",
+          text: object.otu_labels
+        }];
 
-        //buildDemoInfo(testSubject);
-      };
+        Plotly.newPlot("bubble", bubbleData);
+     };
     });
   });
 };
-
-
-
-// // * Use `sample_values` as the values for the bar chart.
-// // * Use `otu_ids` as the labels for the bar chart.
-// // * Use `otu_labels` as the hovertext for the chart.
-
-// //create the barchart & bubble functions
-// function buildCharts() {
-//   d3.json("samples.json").then(function(data) {
-
-//     //grab the values for the charts and lables
-//     var sampleValues = data.samples.sample_values;
-//     var otuIds = data.samples.otu_ids;
-//     var otuLables = data.samples.otu_lables;
-
-//     // 2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
-
-    
-    var barLayout = {
-      title: "Top 10 OTU's found in the Test Subject"
-      };
-
-//     Plotly.newPlot("bar", barTrace, barLayout);
 
 //     // 3. Create a bubble chart that displays each sample.
 //     var bubbleTrace = {
@@ -107,9 +84,6 @@ function optionChanged() {
 //       text: otuLables
 //     };
 
-//     var bubbleLayout = {
-//       title: "OTUs Most Commonly Found in Belly Buttons"
-//     };
 
 //     Plotly.newPlot("bubble", bubbleLayout, bubbleLayout);
 //   });
