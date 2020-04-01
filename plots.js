@@ -65,7 +65,6 @@ function optionChanged() {
             type: "category",
             title: "OTU IDs"
           }
-
         };
 
         Plotly.newPlot("bar", barData, barLayout);
@@ -84,7 +83,8 @@ function optionChanged() {
         }];
 
         var bubbleLayout = {
-
+          height: 600,
+          width: 1000,
           yaxis: {title: "Sample Values"},
           xaxis: {title: "OTU IDs"}
         };
