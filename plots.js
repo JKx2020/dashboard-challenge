@@ -62,7 +62,8 @@ function optionChanged() {
           title: "Top 10 OTU's found in the Test Subject",
           yaxis: {
             autotick: true,
-            type: "category"
+            type: "category",
+            title: "OTU IDs"
           }
 
         };
@@ -82,15 +83,11 @@ function optionChanged() {
           text: object.otu_labels
         }];
 
-        var bubbleLayout = [{
-          margin: {
-            l: 15000,
-            r: 15000,
-            t: 20000,
-            b: 20000
-          },
-          yaxis: {title: "OTU IDs"}
-        }];
+        var bubbleLayout = {
+
+          yaxis: {title: "Sample Values"},
+          xaxis: {title: "OTU IDs"}
+        };
 
         Plotly.newPlot("bubble", bubbleData, bubbleLayout);
         };
