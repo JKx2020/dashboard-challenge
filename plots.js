@@ -53,7 +53,7 @@ function optionChanged() {
         var barData = [{
           type: "bar",
           orientation: "h",
-          y: String(object.otu_ids.slice(0,10)),
+          y: object.otu_ids.slice(0,10),
           x: object.sample_values.slice(0,10),
           hovertext: object.otu_labels.slice(0,10)
         }];
