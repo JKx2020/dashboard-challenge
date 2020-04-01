@@ -24,6 +24,12 @@ d3.json(data).then((collection)=>{
 // 3. call 'optionChanged' when a change is made to the dropdown
 d3.selectAll("#selDataset").on("change", optionChanged);
 
+//unpack function
+function unpack(rows, index) {
+  return rows.map(function(row) {
+    return row;
+  });
+}
 
 // 4. Create the optionChanged function to update the graphs when a change is made
 function optionChanged() {
@@ -35,21 +41,31 @@ function optionChanged() {
     d3.json(data).then((collection)=>{
     collection.samples.forEach((object) => {
       
+      //filter on the selected ID
       if (object.id === testSubject) {
-        console.log(object.id);
+        console.log("OTU: "+object.id);
+        
+        var otuIDs = unpack(object.otu_ids).slice(0,10);
+        var otuIdsGraph = String(otuIDs);
+        console.log(otuIDs);
 
-        //build the bar chart
+         //build the bar chart
         var barData = [{
-          y: String(object.otu_ids.slice(0,10)),
-          x: object.sample_values.slice(0,10),
           type: "bar",
           orientation: "h",
+          y: String(object.otu_ids.slice(0,10)),
+          x: object.sample_values.slice(0,10),
           hovertext: object.otu_labels.slice(0,10)
         }];
 
         var barLayout = {
-          title: "Top 10 OTU's found in the Test Subject"
-          };
+          title: "Top 10 OTU's found in the Test Subject",
+          yaxis: {
+            autotick: true,
+            type: "category"
+          }
+
+        };
 
         Plotly.newPlot("bar", barData, barLayout);
 
@@ -57,7 +73,7 @@ function optionChanged() {
         //build the bubble chart
         var bubbleData = [{
           y: object.sample_values,
-          x: object.otu_ids,
+          x: unpack(object.otu_ids),
           mode: "markers",
           marker: {
             size: object.sample_values,
@@ -66,7 +82,17 @@ function optionChanged() {
           text: object.otu_labels
         }];
 
-        Plotly.newPlot("bubble", bubbleData);
+        var bubbleLayout = [{
+          margin: {
+            l: 15000,
+            r: 15000,
+            t: 20000,
+            b: 20000
+          },
+          yaxis: {title: "OTU IDs"}
+        }];
+
+        Plotly.newPlot("bubble", bubbleData, bubbleLayout);
         };
       });
     });
