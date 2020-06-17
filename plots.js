@@ -1,5 +1,5 @@
 // 1. Use the D3 library to read in `samples.json`.
-var data = "samples.json";
+var data = "data/samples.json";
 d3.json(data).then(samples => console.log(samples));
 
 
@@ -37,7 +37,7 @@ function optionChanged() {
   //select the dropdown value selected
   var testSubject = d3.select("#selDataset").property("value");
   
-  //loop through the data, filter the data by the selected ID and cteate the graphs
+  //loop through the data, filter the data by the selected ID and create the graphs
     d3.json(data).then((collection)=>{
     collection.samples.forEach((object) => {
       
@@ -121,18 +121,19 @@ function optionChanged() {
   });
 };
 
+// Initialize the page with a set-dashboard
+function init() {
 
-// 4. Display the sample metadata, i.e., an individual's demographic information.
+  // pull in the sample ID dataset so you can then loop through and grab the first sample
+  d3.json("data/samples.json").then((data) => {
 
-//create filter function to filter the metadata objects on the selected test subject
- 
+    // create the samplenames variable for the data
+    var samplenames = data.names
+    var firstsample = samplenames[0]
 
-   //grab the metadata values by filtering the objects by testSubject id choosen from dropdown
-
-
-
-// // 5. Display each key-value pair from the metadata JSON object somewhere on the page.
-
-// // ![hw](Images/hw03.png)
-
-// // 6. Update all of the plots any time that a new sample is selected
+    // run the optionChanged function with the first sample
+    optionChanged(firstsample)
+    })
+}
+// run init function to intialize the dashboard
+init()
